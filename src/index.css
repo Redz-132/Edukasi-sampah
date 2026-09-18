@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --paper: #f3efe1;
+  --paper-dim: #ece5d0;
+  --ink: #1c2a1e;
+  --ink-soft: #4a5a48;
+  --organik: #3c7a44;
+  --organik-dark: #275330;
+  --anorganik: #e3a72e;
+  --anorganik-dark: #a9741a;
+  --b3: #c1443c;
+  --b3-dark: #8a2a24;
+  --line: rgba(28, 42, 30, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Unbounded", "Plus Jakarta Sans", sans-serif;
+}
+
+/* subtle paper grain so the flat background doesn't feel like a plain fill */
+.paper-grain {
+  background-image:
+    radial-gradient(rgba(28, 42, 30, 0.05) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* ---------- 3D bins, built from real CSS geometry (no images) ---------- */
+.bin-stage {
+  position: relative;
+  perspective: 1400px;
+}
+
+.bin {
+  --w: 92px;
+  --d: 92px;
+  --h: 150px;
+  position: relative;
+  width: var(--w);
+  height: calc(var(--h) + var(--d) * 0.55);
+  transform-style: preserve-3d;
+  transform: rotateX(56deg) rotateZ(-42deg);
+}
+
+.bin-face {
+  position: absolute;
+  border: 1.5px solid rgba(0, 0, 0, 0.18);
+}
+
+.bin-top {
+  width: var(--w);
+  height: var(--d);
+  top: 0;
+  left: 0;
+  transform: translateZ(var(--h));
+  border-radius: 6px;
+}
+
+.bin-front {
+  width: var(--w);
+  height: var(--h);
+  top: var(--d);
+  left: 0;
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  border-radius: 0 0 4px 4px;
+}
+
+.bin-side {
+  width: var(--d);
+  height: var(--h);
+  top: var(--d);
+  left: var(--w);
+  transform-origin: top left;
+  transform: rotateX(-90deg) rotateY(90deg);
+  border-radius: 0 0 4px 4px;
+}
+
+.bin-lid {
+  width: calc(var(--w) + 14px);
+  height: calc(var(--d) + 14px);
+  top: -14px;
+  left: -7px;
+  border-radius: 8px;
+  transform: translateZ(calc(var(--h) + 6px));
+}
+
+.bin-shadow {
+  position: absolute;
+  width: calc(var(--w) * 2.3);
+  height: calc(var(--d) * 2.3);
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(28, 42, 30, 0.28), transparent 70%);
+  filter: blur(2px);
+  z-index: -1;
+}
+
+@keyframes bin-float {
+  0%, 100% { transform: rotateX(56deg) rotateZ(-42deg) translateY(0); }
+  50% { transform: rotateX(56deg) rotateZ(-42deg) translateY(-10px); }
+}
+
+.bin-float {
+  animation: bin-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bin-float {
+    animation: none;
+  }
+}
+
+.bin-item {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 26px;
+  z-index: 2;
+  animation: item-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes item-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-4deg); }
+  50% { transform: translateX(-50%) translateY(-8px) rotate(4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bin-item { animation: none; }
+}
+
+/* social badges: layered extrusion for a 3D-pressed look */
+.social-badge-stage {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  perspective: 600px;
+}
+
+.social-badge-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  transform: translate(5px, 7px);
+}
+
+.social-badge-front {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.social-badge-stage:hover .social-badge-front {
+  transform: translate(-2px, -4px) rotateX(10deg) rotateY(-10deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-badge-front { transition: none; }
+}
+
+/* signage cards: gentle tilt that responds to hover, not constant motion */
+.tilt-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform: perspective(900px) rotateX(0deg);
+}
+
+.tilt-card:hover {
+  transform: perspective(900px) rotateX(4deg) translateY(-6px);
+}
