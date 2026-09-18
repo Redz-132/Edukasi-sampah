@@ -13,7 +13,7 @@ export default function Hero() {
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-[var(--ink-soft)]">
             Tiga warna tong, tiga jenis sampah. Kenali organik, anorganik, dan
-            B3 supaya sampahmu berakhir di tempat yang benar — bukan
+            B3 supaya sampahmu berakhir di tempat yang benar bukan
             bercampur jadi satu.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

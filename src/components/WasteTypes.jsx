@@ -67,7 +67,7 @@ export default function WasteTypes() {
     <section id="jenis" className="border-t border-[var(--line)] bg-white/40">
       <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
         <h2 className="font-display text-2xl font-bold text-[var(--ink)] sm:text-3xl">
-          Tiga jenis sampah yang perlu kamu kenali
+          Tiga Jenis sampah yang perlu kamu kenali
         </h2>
         <p className="mt-2 max-w-xl text-[var(--ink-soft)]">
           Tempelkan warna ini di kepala: hijau untuk organik, kuning untuk
